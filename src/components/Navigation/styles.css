@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.nav_item {
+  list-style-type: none;
+  font-weight: 500;
+}
+
+.nav_item_active {
+  color: forestgreen;
+}
