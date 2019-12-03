@@ -15,7 +15,7 @@ function App() {
           setLoggedIn(prevState => !prevState);
         }}
       >
-        {isLoggedIn ? 'Logout' : 'Login'}
+        {isLoggedIn ? 'Logout from private routes' : 'Login to private routes'}
       </button>
     </div>
   );

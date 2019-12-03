@@ -39,6 +39,20 @@ function Navigation() {
         <li className='nav_item'>
           <NavLink
             to={{
+              pathname: '/signup',
+              state: {
+                from: location
+              }
+            }}
+            exact
+            activeClassName='nav_item_active'
+          >
+            Signup
+          </NavLink>
+        </li>
+        <li className='nav_item'>
+          <NavLink
+            to={{
               pathname: `/profile/${id}`,
               state: { from: location }
             }}
