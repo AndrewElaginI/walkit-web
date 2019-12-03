@@ -1,8 +1,9 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function Profile({ match }) {
-  return <div>PROFILE {match.params.id}</div>;
+function Profile() {
+  const { id } = useParams();
+  return <div>PROFILE {id}</div>;
 }
 
-export default withRouter(Profile);
+export default Profile;

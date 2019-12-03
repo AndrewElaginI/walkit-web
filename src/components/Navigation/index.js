@@ -1,25 +1,47 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './styles.css';
 
 function Navigation() {
   const id = 5;
+  const location = useLocation();
   return (
     <div>
       <ul className='nav'>
         <li className='nav_item'>
-          <NavLink to='/' exact activeClassName='nav_item_active'>
+          <NavLink
+            to={{
+              pathname: '/',
+              state: {
+                from: location
+              }
+            }}
+            exact
+            activeClassName='nav_item_active'
+          >
             Home
           </NavLink>
         </li>
         <li className='nav_item'>
-          <NavLink to='/login' exact activeClassName='nav_item_active'>
+          <NavLink
+            to={{
+              pathname: '/login',
+              state: {
+                from: location
+              }
+            }}
+            exact
+            activeClassName='nav_item_active'
+          >
             Login
           </NavLink>
         </li>
         <li className='nav_item'>
           <NavLink
-            to={`/profile/:${id}`}
+            to={{
+              pathname: `/profile/${id}`,
+              state: { from: location }
+            }}
             exact
             activeClassName='nav_item_active'
           >
