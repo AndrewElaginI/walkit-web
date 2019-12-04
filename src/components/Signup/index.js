@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { useInput } from '../../hooks/useInput';
 
 function Signup() {
@@ -11,6 +12,16 @@ function Signup() {
     e.preventDefault();
     resetEmail();
     resetPassword();
+    axios
+      .post('http://localhost:3000/users', {
+        email,
+        password,
+        role: 'employee'
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => console.log(error));
   };
   return (
     <div>

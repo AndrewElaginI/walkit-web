@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { useInput } from '../../hooks/useInput';
 
 function Login() {
@@ -11,6 +12,27 @@ function Login() {
     e.preventDefault();
     resetEmail();
     resetPassword();
+    axios
+      .post('http://localhost:3000/auth/login', {
+        email,
+        password
+      })
+      .then(response => {
+        console.log(response);
+        const { token } = response.data.data;
+        console.log(token);
+        if (token) {
+          axios
+            .get('http://localhost:3000/profile', {
+              headers: { Authorization: `bearer ${token}` }
+            })
+            .then(response => {
+              console.log('User response', response.data);
+            })
+            .catch(error => console.log(error));
+        }
+      })
+      .catch(error => console.log(error));
   };
   return (
     <div>
