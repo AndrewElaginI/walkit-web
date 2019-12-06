@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { userIdSelector } from '../../store/selectors';
 import './styles.css';
 
-function Navigation() {
-  const id = 18;
+function Navigation({ userId }) {
   const location = useLocation();
   return (
     <div>
@@ -53,7 +55,7 @@ function Navigation() {
         <li className='nav_item'>
           <NavLink
             to={{
-              pathname: `/profile/${id}`,
+              pathname: `/profile/${userId}`,
               state: { from: location }
             }}
             exact
@@ -67,4 +69,8 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+const mapStateToProps = state => ({
+  userId: userIdSelector(state)
+});
+
+export default connect(mapStateToProps)(Navigation);

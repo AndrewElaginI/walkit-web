@@ -6,14 +6,14 @@ import Profile from '../Profile';
 import Signup from '../Signup';
 import ProtectedRoute from './ProtectedRoute';
 
-function Routes({ isLoggedIn }) {
+function Routes() {
   return (
     <div>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        <ProtectedRoute isLoggedIn={isLoggedIn}>
+        <ProtectedRoute>
           <Route exact path='/profile/:id' component={Profile} />
         </ProtectedRoute>
       </Switch>

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
 export const userIdSelector = createSelector(
-  state => state.user.userId,
+  state => state.auth.userId,
   userId => userId
 );

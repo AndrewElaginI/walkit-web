@@ -1,10 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+
 import { useInput } from '../../hooks/useInput';
+import { signupStart } from '../../store/user/actions';
 
 function Signup() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [email, handleEmail, resetEmail] = useInput('');
   const [password, handlePassword, resetPassword] = useInput('');
 
@@ -12,16 +15,17 @@ function Signup() {
     e.preventDefault();
     resetEmail();
     resetPassword();
-    axios
-      .post('http://localhost:3000/users', {
-        email,
-        password,
-        role: 'employee'
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => console.log(error));
+    dispatch(signupStart(email, password));
+    // axios
+    //   .post('http://localhost:3000/users', {
+    //     email,
+    //     password,
+    //     role: 'employee'
+    //   })
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => console.log(error));
   };
   return (
     <div>
@@ -48,7 +52,7 @@ function Signup() {
             onChange={handlePassword}
           />
         </div>
-        <button type='submit'>Submit Login</button>
+        <button type='submit'>Signup</button>
       </form>
       <div>
         Email: {email} Password: {password}

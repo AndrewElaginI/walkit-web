@@ -22,7 +22,7 @@ function authApi(data) {
 
 function* auth(action) {
   try {
-    const getTokenResponse = yield call(authApi, [
+    const getToken = yield call(authApi, [
       'POST',
       tokenUrl,
       {
@@ -33,7 +33,7 @@ function* auth(action) {
         'Content-Type': 'application/json'
       }
     ]);
-    const { token } = getTokenResponse.data.data;
+    const { token } = getToken.data.data;
     localStorage.setItem('token', token);
 
     const getUserResponse = yield call(() =>
