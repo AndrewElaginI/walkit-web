@@ -14,7 +14,7 @@ function Profile() {
   return (
     <div>
       <h2>PROFILE {id}</h2>
-      <h4>User: {user.id}</h4>
+      <h4>User: {user.email}</h4>
     </div>
   );
 }

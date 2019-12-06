@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { useInput } from '../../hooks/useInput';
+import { authStart } from '../../store/auth/actions';
 
 function Login() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [email, handleEmail, resetEmail] = useInput('');
   const [password, handlePassword, resetPassword] = useInput('');
@@ -12,27 +14,7 @@ function Login() {
     e.preventDefault();
     resetEmail();
     resetPassword();
-    axios
-      .post('http://localhost:3000/auth/login', {
-        email,
-        password
-      })
-      .then(response => {
-        console.log(response);
-        const { token } = response.data.data;
-        console.log(token);
-        if (token) {
-          axios
-            .get('http://localhost:3000/profile', {
-              headers: { Authorization: `bearer ${token}` }
-            })
-            .then(response => {
-              console.log('User response', response.data);
-            })
-            .catch(error => console.log(error));
-        }
-      })
-      .catch(error => console.log(error));
+    dispatch(authStart(email, password));
   };
   return (
     <div>
