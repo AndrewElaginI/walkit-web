@@ -1,12 +1,15 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { userIdSelector } from '../../store/selectors';
 import './styles.css';
+import { userIdSelector } from '../../store/selectors';
+import { logout } from '../../store/auth/actions';
 
-function Navigation({ userId }) {
+function Navigation() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const selectedUserId = useSelector(state => userIdSelector(state));
   return (
     <div>
       <ul className='nav'>
@@ -24,38 +27,59 @@ function Navigation({ userId }) {
             Home
           </NavLink>
         </li>
+        {!selectedUserId ? (
+          <React.Fragment>
+            <li className='nav_item'>
+              <NavLink
+                to={{
+                  pathname: '/login',
+                  state: {
+                    from: location
+                  }
+                }}
+                exact
+                activeClassName='nav_item_active'
+              >
+                Login
+              </NavLink>
+            </li>
+            <li className='nav_item'>
+              <NavLink
+                to={{
+                  pathname: '/signup',
+                  state: {
+                    from: location
+                  }
+                }}
+                exact
+                activeClassName='nav_item_active'
+              >
+                Signup
+              </NavLink>
+            </li>
+          </React.Fragment>
+        ) : (
+          <li className='nav_item'>
+            <NavLink
+              to={{
+                pathname: '/login',
+                state: {
+                  from: location
+                }
+              }}
+              onClick={() => dispatch(logout())}
+              exact
+              activeClassName='nav_item_active'
+            >
+              Logout
+            </NavLink>
+          </li>
+        )}
+
         <li className='nav_item'>
           <NavLink
             to={{
-              pathname: '/login',
-              state: {
-                from: location
-              }
-            }}
-            exact
-            activeClassName='nav_item_active'
-          >
-            Login
-          </NavLink>
-        </li>
-        <li className='nav_item'>
-          <NavLink
-            to={{
-              pathname: '/signup',
-              state: {
-                from: location
-              }
-            }}
-            exact
-            activeClassName='nav_item_active'
-          >
-            Signup
-          </NavLink>
-        </li>
-        <li className='nav_item'>
-          <NavLink
-            to={{
-              pathname: `/profile/${userId}`,
+              pathname: `/profile/${selectedUserId}`,
               state: { from: location }
             }}
             exact
@@ -69,8 +93,4 @@ function Navigation({ userId }) {
   );
 }
 
-const mapStateToProps = state => ({
-  userId: userIdSelector(state)
-});
-
-export default connect(mapStateToProps)(Navigation);
+export default Navigation;
