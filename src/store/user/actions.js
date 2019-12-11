@@ -7,12 +7,18 @@ import {
   FETCH_SPECIFIC_USERS_FAIL
 } from './types';
 
-export const signupStart = (email, password, role = 'employee') => {
+export const signupStart = (
+  email,
+  password,
+  role = 'employee',
+  userType = 'all'
+) => {
   return {
     type: SIGNUP_START,
     email,
     password,
-    role
+    role,
+    userType
   };
 };
 
@@ -30,10 +36,16 @@ export const signupFail = error => {
   };
 };
 
-export const fetchSpecificUsersStart = (userType = 'all') => {
+export const fetchSpecificUsersStart = (
+  role = 'employee',
+  userType = 'all',
+  token
+) => {
   return {
     type: FETCH_SPECIFIC_USERS_START,
-    userType
+    role,
+    userType,
+    token
   };
 };
 

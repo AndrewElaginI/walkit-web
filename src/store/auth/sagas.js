@@ -22,6 +22,7 @@ function authApi(data) {
 
 function* auth(action) {
   try {
+    // to refactor
     const getToken = yield call(authApi, [
       'POST',
       tokenUrl,
@@ -43,7 +44,8 @@ function* auth(action) {
     );
     const user = getUserResponse.data;
     localStorage.setItem('userId', user.id);
-    yield put(actions.authSuccess(token, user.id));
+    localStorage.setItem('user', user);
+    yield put(actions.authSuccess(token, user.id, user));
     yield put(push(`/profile/${user.id}`));
   } catch (error) {
     yield put(actions.authFail(error.message));

@@ -5,7 +5,12 @@ import * as actions from './actions';
 import { authStart } from '../auth/actions';
 import { fetchSpecificUsersSuccess, fetchSpecificUsersFail } from './actions';
 import { SIGNUP_START, FETCH_SPECIFIC_USERS_START } from './types';
-import { signupUrl } from './constants';
+import {
+  signupUrl,
+  fetchAllUsersUrl,
+  fetchManagersUrl,
+  fetchEmployeesUrl
+} from './constants';
 
 export default function* watchUserSaga() {
   yield takeLatest(SIGNUP_START, signup);
@@ -29,26 +34,38 @@ function* signup(action) {
   }
 }
 
+const fetchUsersApi = (role, url, token) =>
+  axios.get(url, {
+    headers: { Authorization: `bearer ${token}` },
+    params: {
+      role: role
+    }
+  });
+
 function* fetchSpecificUsers(action) {
-  const { userType } = action;
-  let userList;
+  const { role, userType, token } = action;
+  let userList = {};
   try {
     switch (userType) {
       case 'all':
-        userList = yield call(() => axios.get('http://localhost:3000/users'));
-        break;
-      case 'employees':
         userList = yield call(() =>
-          axios.get('http://localhost:3000/users/role?role=employee')
+          fetchUsersApi(role, fetchAllUsersUrl, token)
         );
         break;
-      case 'managers':
+      case 'employee':
         userList = yield call(() =>
-          axios.get('http://localhost:3000/users/role?role=manager')
+          fetchUsersApi(role, fetchEmployeesUrl, token)
+        );
+        break;
+      case 'manager':
+        userList = yield call(() =>
+          fetchUsersApi(role, fetchManagersUrl, token)
         );
         break;
       default:
-        userList = yield call(() => axios.get('http://localhost:3000/users'));
+        userList = yield call(() =>
+          fetchUsersApi(role, fetchAllUsersUrl, token)
+        );
         break;
     }
     yield put(fetchSpecificUsersSuccess(userList.data));

@@ -8,11 +8,12 @@ export const authStart = (email, password) => {
   };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, user) => {
   return {
     type: AUTH_SUCCESS,
     token: token,
-    userId: userId
+    userId: userId,
+    currentUser: user
   };
 };
 

@@ -4,7 +4,8 @@ const initialState = {
   token: null,
   userId: null,
   error: null,
-  loading: false
+  loading: false,
+  currentUser: {}
 };
 
 export const reducer = (state = initialState, action) => {
@@ -19,7 +20,8 @@ export const reducer = (state = initialState, action) => {
         ...state,
         token: action.token,
         userId: action.userId,
-        loading: false
+        loading: false,
+        currentUser: action.currentUser
       };
     case AUTH_FAIL:
       return {
@@ -28,7 +30,7 @@ export const reducer = (state = initialState, action) => {
         error: action.error
       };
     case AUTH_LOGOUT:
-      return { ...state, token: null, userId: null };
+      return { ...state, token: null, userId: null, currentUser: {} };
     default:
       return state;
   }

@@ -5,6 +5,16 @@ export const userIdSelector = createSelector(
   userId => userId
 );
 
+export const userSelector = createSelector(
+  state => state.auth.currentUser,
+  currentUser => currentUser
+);
+
+export const tokenSelector = createSelector(
+  state => state.auth.token,
+  token => token
+);
+
 export const userListSelector = createSelector(
   state => state.user.userList,
   userList => userList
