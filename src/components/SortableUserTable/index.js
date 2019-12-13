@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -19,6 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import DeleteUserDialog from '../DeleteUserDialog';
 
 function createData(userList) {
   return userList.map(user => ({
@@ -154,7 +155,11 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
+  const [openDeleteUserDialog, setOpenDeleteUserDialog] = useState(false);
   const { numSelected } = props;
+  const handleDelete = () => {
+    setOpenDeleteUserDialog(true);
+  };
 
   return (
     <Toolbar
@@ -178,7 +183,13 @@ const EnhancedTableToolbar = props => {
 
       {numSelected > 0 ? (
         <Tooltip title='Delete'>
-          <IconButton aria-label='delete'>
+          <IconButton
+            aria-label='delete'
+            onClick={e => {
+              e.preventDefault();
+              handleDelete();
+            }}
+          >
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -188,6 +199,9 @@ const EnhancedTableToolbar = props => {
             <FilterListIcon />
           </IconButton>
         </Tooltip>
+      )}
+      {openDeleteUserDialog && (
+        <DeleteUserDialog openDialog={openDeleteUserDialog} />
       )}
     </Toolbar>
   );
@@ -318,7 +332,10 @@ export default function SortableUserTable({ userList }) {
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row.fullName)}
+                      onClick={event => {
+                        event.preventDefault();
+                        handleClick(event, row.fullName);
+                      }}
                       role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}

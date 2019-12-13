@@ -10,7 +10,6 @@ import {
   userSelector,
   tokenSelector
 } from '../../store/selectors';
-import UserTable from '../UserTable';
 import SortableUserTable from '../SortableUserTable';
 
 function AdminPanel() {
@@ -26,16 +25,6 @@ function AdminPanel() {
       fetchSpecificUsersStart(selectedUser.role, listOption, selectedToken)
     );
   }, [listOption, dispatch, selectedUser, selectedToken]);
-  const userList = selectedUserList.map(user => {
-    return (
-      <li
-        key={user.id + Math.random()}
-        className='userlist_item sparkle u-hover--sparkle'
-      >
-        {user.email}
-      </li>
-    );
-  });
   return (
     <div>
       <h2>PROFILE ID: {selectedUserId}</h2>
@@ -47,8 +36,6 @@ function AdminPanel() {
           <option value='manager'>manager</option>
         </select>
       </div>
-      {/* <ul>{userList}</ul> */}
-      {/* <UserTable userList={selectedUserList} /> */}
       <SortableUserTable userList={selectedUserList} />
     </div>
   );
