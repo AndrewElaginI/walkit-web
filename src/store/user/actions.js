@@ -7,18 +7,12 @@ import {
   FETCH_SPECIFIC_USERS_FAIL
 } from './types';
 
-export const signupStart = (
-  email,
-  password,
-  role = 'employee',
-  userType = 'all'
-) => {
+export const signupStart = (email, password, role = 'employee') => {
   return {
     type: SIGNUP_START,
     email,
     password,
-    role,
-    userType
+    role
   };
 };
 

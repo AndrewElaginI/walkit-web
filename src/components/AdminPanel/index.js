@@ -10,8 +10,10 @@ import {
   userSelector,
   tokenSelector
 } from '../../store/selectors';
+import UserTable from '../UserTable';
+import SortableUserTable from '../SortableUserTable';
 
-function Profile() {
+function AdminPanel() {
   const dispatch = useDispatch();
   const selectedUserList = useSelector(state => userListSelector(state));
   const selectedUserId = useSelector(state => userIdSelector(state));
@@ -45,9 +47,11 @@ function Profile() {
           <option value='manager'>manager</option>
         </select>
       </div>
-      <ul>{userList}</ul>
+      {/* <ul>{userList}</ul> */}
+      {/* <UserTable userList={selectedUserList} /> */}
+      <SortableUserTable userList={selectedUserList} />
     </div>
   );
 }
 
-export default Profile;
+export default AdminPanel;

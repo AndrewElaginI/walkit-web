@@ -10,12 +10,14 @@ function Signup() {
   const dispatch = useDispatch();
   const [email, handleEmail, resetEmail] = useInput('');
   const [password, handlePassword, resetPassword] = useInput('');
+  const [role, handleRole, resetRole] = useInput('employee');
 
   const handleSubmit = e => {
     e.preventDefault();
     resetEmail();
     resetPassword();
-    dispatch(signupStart(email, password));
+    resetRole();
+    dispatch(signupStart(email, password, role));
     // axios
     //   .post('http://localhost:3000/users', {
     //     email,
@@ -51,6 +53,14 @@ function Signup() {
             value={password}
             onChange={handlePassword}
           />
+        </div>
+        <div>
+          <label htmlFor='role'>Role:</label>
+          <select id='role' value={role} onChange={handleRole}>
+            <option value='employee'>employee</option>
+            <option value='manager'>manager</option>
+            <option value='admin'>admin</option>
+          </select>
         </div>
         <button type='submit'>Signup</button>
       </form>

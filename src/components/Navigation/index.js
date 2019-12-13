@@ -85,7 +85,7 @@ function Navigation() {
             exact
             activeClassName='nav_item_active'
           >
-            Profile
+            Admin Panel
           </NavLink>
         </li>
       </ul>

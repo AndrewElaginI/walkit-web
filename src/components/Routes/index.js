@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Home from '../Home';
 import Login from '../Login';
-import Profile from '../Profile';
+import AdminPanel from '../AdminPanel';
 import Signup from '../Signup';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -14,7 +14,7 @@ function Routes() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <ProtectedRoute>
-          <Route exact path='/profile/:id' component={Profile} />
+          <Route exact path='/profile/:id' component={AdminPanel} />
         </ProtectedRoute>
       </Switch>
     </div>
