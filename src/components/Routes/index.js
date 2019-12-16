@@ -14,12 +14,11 @@ function Routes() {
         <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        <Route exact path='/manager' component={ManagerPanel} />
-        <ProtectedRoute userRole='admin'>
-          <Route exact path='/profile/:id' component={AdminPanel} />
+        <ProtectedRoute exact path='/profile/:id' userRole='admin'>
+          <AdminPanel />
         </ProtectedRoute>
-        <ProtectedRoute userRole='manager'>
-          <Route exact path='/manager' component={ManagerPanel} />
+        <ProtectedRoute exact path='/manager' userRole='manager'>
+          <ManagerPanel />
         </ProtectedRoute>
       </Switch>
     </div>

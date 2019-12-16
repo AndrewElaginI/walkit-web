@@ -3,13 +3,13 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as selectors from '../../../store/selectors';
 
-function ProtectedRoute({ children, userRole = 'employee', user, ...rest }) {
+function ProtectedRoute({ children, user, userRole, ...rest }) {
   const { id, role } = user;
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        id && userRole === role ? (
+        id && role === userRole ? (
           children
         ) : (
           <Redirect
