@@ -79,6 +79,19 @@ function Navigation() {
         <li className='nav_item'>
           <NavLink
             to={{
+              pathname: `/manager`,
+              state: { from: location }
+            }}
+            exact
+            activeClassName='nav_item_active'
+          >
+            Manager Panel
+          </NavLink>
+        </li>
+
+        <li className='nav_item'>
+          <NavLink
+            to={{
               pathname: `/profile/${selectedUserId}`,
               state: { from: location }
             }}

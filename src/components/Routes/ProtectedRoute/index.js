@@ -3,12 +3,13 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as selectors from '../../../store/selectors';
 
-function ProtectedRoute({ children, userId, ...rest }) {
+function ProtectedRoute({ children, userRole = 'employee', user, ...rest }) {
+  const { id, role } = user;
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        userId ? (
+        id && userRole === role ? (
           children
         ) : (
           <Redirect
@@ -24,7 +25,7 @@ function ProtectedRoute({ children, userId, ...rest }) {
 }
 
 const mapStateToProps = state => ({
-  userId: selectors.userIdSelector(state)
+  user: selectors.userSelector(state)
 });
 
 export default connect(mapStateToProps)(ProtectedRoute);

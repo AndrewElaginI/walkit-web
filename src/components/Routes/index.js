@@ -5,6 +5,7 @@ import Login from '../Login';
 import AdminPanel from '../AdminPanel';
 import Signup from '../Signup';
 import ProtectedRoute from './ProtectedRoute';
+import ManagerPanel from '../ManagerPanel';
 
 function Routes() {
   return (
@@ -13,8 +14,12 @@ function Routes() {
         <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        <ProtectedRoute>
+        <Route exact path='/manager' component={ManagerPanel} />
+        <ProtectedRoute userRole='admin'>
           <Route exact path='/profile/:id' component={AdminPanel} />
+        </ProtectedRoute>
+        <ProtectedRoute userRole='manager'>
+          <Route exact path='/manager' component={ManagerPanel} />
         </ProtectedRoute>
       </Switch>
     </div>
