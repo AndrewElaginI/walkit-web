@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Navigation from './components/Navigation';
+import MaterialNavigation from './components/MaterialNavigation';
 import Routes from './components/Routes';
 
 function App() {
   return (
     <div className='App'>
-      <Navigation />
+      <MaterialNavigation />
       <Routes />
     </div>
   );

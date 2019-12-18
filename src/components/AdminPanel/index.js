@@ -27,8 +27,8 @@ function AdminPanel() {
   }, [listOption, dispatch, selectedUser, selectedToken]);
   return (
     <div>
-      <h2>PROFILE ID: {selectedUserId}</h2>
-      <h2>Email: {selectedUser.email}</h2>
+      <h2>ADMIN PANEL</h2>
+      <h2>Admin: {selectedUser.email}</h2>
       <div>
         <select value={listOption} onChange={handleListOption}>
           <option value='all'>all</option>

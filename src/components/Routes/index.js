@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Home from '../Home';
 import Login from '../Login';
@@ -9,7 +9,7 @@ import ManagerPanel from '../ManagerPanel';
 
 function Routes() {
   return (
-    <div>
+    <Fragment>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
@@ -21,7 +21,7 @@ function Routes() {
           <ManagerPanel />
         </ProtectedRoute>
       </Switch>
-    </div>
+    </Fragment>
   );
 }
 
