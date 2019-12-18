@@ -15,6 +15,11 @@ export const tokenSelector = createSelector(
   token => token
 );
 
+export const isLoggedInSelector = createSelector(
+  state => state.auth.isLoggedIn,
+  isLoggedIn => isLoggedIn
+);
+
 export const userListSelector = createSelector(
   state => state.user.userList,
   userList => userList

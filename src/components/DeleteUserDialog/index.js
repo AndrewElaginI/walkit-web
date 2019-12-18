@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -6,18 +7,28 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function DeleteUserDialog({ openDialog = false }) {
-  const [open, setOpen] = React.useState(openDialog);
+import { deleteUserStart } from '../../store/user/actions';
+import { tokenSelector } from '../../store/selectors';
+
+function DeleteUserDialog({ openDialog = false, userIds = [] }) {
+  const [open, setOpen] = useState(openDialog);
+  const dispatch = useDispatch();
+
+  const selectedToken = useSelector(state => tokenSelector(state));
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleDelete = e => {
+    e.preventDefault();
+    console.log('From Dialog userIds', userIds);
+    dispatch(deleteUserStart(userIds, selectedToken));
+    handleClose();
+  };
+
   return (
     <div>
-      {/* <Button variant='outlined' color='primary' onClick={handleClickOpen}>
-        Open alert dialog
-      </Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -37,7 +48,7 @@ export default function DeleteUserDialog({ openDialog = false }) {
           <Button onClick={handleClose} color='secondary'>
             Cancel
           </Button>
-          <Button onClick={handleClose} color='secondary' autoFocus>
+          <Button onClick={e => handleDelete(e)} color='secondary' autoFocus>
             OK
           </Button>
         </DialogActions>
@@ -45,3 +56,5 @@ export default function DeleteUserDialog({ openDialog = false }) {
     </div>
   );
 }
+
+export default DeleteUserDialog;
