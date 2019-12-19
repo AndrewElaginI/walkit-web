@@ -7,6 +7,7 @@ import { authStart } from '../../../store/auth/actions';
 import InputWithIcon from '../../../core/InputWithIcon';
 import PasswordInput from '../../../core/PasswordInput';
 import { Button } from '@material-ui/core';
+import FormButton from '../../../core/FormButton';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -23,16 +24,12 @@ function LoginForm() {
   return (
     <div>
       <h2>Login</h2>
-      <button onClick={() => history.goBack()}>Back</button>
       <form onSubmit={handleSubmit}>
         <InputWithIcon value={email} handleChange={handleEmail} />
         <PasswordInput value={password} handleChange={handlePassword} />
-        <div>
-          <Button variant='contained' color='primary' type='submit'>
-            Login
-          </Button>
-        </div>
+        <FormButton />
       </form>
+      <Button onClick={() => history.goBack()}>Back</Button>
     </div>
   );
 }
