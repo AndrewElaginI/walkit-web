@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Home from '../Home';
-import Login from '../Login';
+import LoginForm from '../Forms/LoginForm';
 import AdminPanel from '../AdminPanel';
 import Signup from '../Signup';
 import ProtectedRoute from './ProtectedRoute';
@@ -12,7 +12,7 @@ function Routes() {
     <Fragment>
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/login' component={Login} />
+        <Route exact path='/login' component={LoginForm} />
         <Route exact path='/signup' component={Signup} />
         <ProtectedRoute exact path='/profile/:id' userRole='admin'>
           <AdminPanel />
