@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,76 +6,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
-
-function createData(userList) {
-  return userList.map(user => ({
-    fullName: `${user.email} ${user.role}`,
-    id: user.id,
-    email: user.email,
-    role: user.role,
-    phone: Number(user.id) * 12345,
-    connected: 'Yes'
-  }));
-}
-
-function desc(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function stableSort(array, cmp) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map(el => el[0]);
-}
-
-function getSorting(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => desc(a, b, orderBy)
-    : (a, b) => -desc(a, b, orderBy);
-}
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing(3)
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2)
-  },
-  table: {
-    minWidth: 750
-  },
-  tableWrapper: {
-    overflowX: 'auto'
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1
-  }
-}));
+import { useStyles } from './styles';
+import { createData, stableSort, getSorting } from './helpers';
 
 export default function SortableUserTable({ userList }) {
   const classes = useStyles();
@@ -88,7 +22,10 @@ export default function SortableUserTable({ userList }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  console.log('typeof SELECTED', typeof selected);
   console.log('SELECTED', selected);
+  console.log(Object.keys(selected));
+  console.log(selected['0']);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === 'desc';
@@ -134,9 +71,9 @@ export default function SortableUserTable({ userList }) {
     setPage(0);
   };
 
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
-  };
+  // const handleChangeDense = event => {
+  //   setDense(event.target.checked);
+  // };
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
