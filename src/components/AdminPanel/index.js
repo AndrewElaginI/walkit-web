@@ -11,11 +11,11 @@ import {
   tokenSelector
 } from '../../store/selectors';
 import SortableUserTable from '../SortableUserTable';
+import UserTypeSelect from './UserTypeSelect';
 
 function AdminPanel() {
   const dispatch = useDispatch();
   const selectedUserList = useSelector(state => userListSelector(state));
-  const selectedUserId = useSelector(state => userIdSelector(state));
   const selectedUser = useSelector(state => userSelector(state));
   const selectedToken = useSelector(state => tokenSelector(state));
   const [listOption, handleListOption] = useInput('all');
@@ -27,15 +27,8 @@ function AdminPanel() {
   }, [listOption, dispatch, selectedUser, selectedToken]);
   return (
     <div>
-      <h2>ADMIN PANEL</h2>
-      <h2>Admin: {selectedUser.email}</h2>
-      <div>
-        <select value={listOption} onChange={handleListOption}>
-          <option value='all'>all</option>
-          <option value='employee'>employee</option>
-          <option value='manager'>manager</option>
-        </select>
-      </div>
+      <h2>ADMIN PANEL: {selectedUser.email}</h2>
+      <UserTypeSelect value={listOption} handleChange={handleListOption} />
       <SortableUserTable userList={selectedUserList} />
     </div>
   );
