@@ -2,12 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { Button } from '@material-ui/core';
+
 import { useInput } from '../../../hooks/useInput';
 import { authStart } from '../../../store/auth/actions';
 import InputWithIcon from '../../../core/InputWithIcon';
 import PasswordInput from '../../../core/PasswordInput';
-import { Button } from '@material-ui/core';
 import FormButton from '../../../core/FormButton';
+import PageTitle from '../../../core/PageTitle';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ function LoginForm() {
   };
   return (
     <div>
-      <h2>Login</h2>
+      <PageTitle>Login</PageTitle>
       <form onSubmit={handleSubmit}>
         <InputWithIcon value={email} handleChange={handleEmail} />
         <PasswordInput value={password} handleChange={handlePassword} />

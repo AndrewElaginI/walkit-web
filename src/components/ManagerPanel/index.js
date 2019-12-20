@@ -1,9 +1,10 @@
 import React from 'react';
+import PageTitle from '../../core/PageTitle';
 
 function ManagerPanel() {
   return (
     <div>
-      <h2>Manager Panel</h2>
+      <PageTitle>Manager Panel</PageTitle>
     </div>
   );
 }

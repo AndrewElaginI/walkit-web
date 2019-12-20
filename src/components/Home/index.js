@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 
 import { userSelector, isLoggedInSelector } from '../../store/selectors';
 import * as commonStyles from '../../common/assets/styles';
+import PageTitle from '../../core/PageTitle';
 
 function Home() {
   const location = useLocation();
@@ -12,7 +13,7 @@ function Home() {
   const selectedIsLoggedIn = useSelector(state => isLoggedInSelector(state));
   return (
     <div>
-      <h2>HOME</h2>
+      <PageTitle>Home</PageTitle>
       {selectedIsLoggedIn ? (
         <h3>Welcome, {selectedUser.email}</h3>
       ) : (

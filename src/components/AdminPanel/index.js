@@ -6,12 +6,12 @@ import { useInput } from '../../hooks/useInput';
 import { fetchSpecificUsersStart } from '../../store/user/actions';
 import {
   userListSelector,
-  userIdSelector,
   userSelector,
   tokenSelector
 } from '../../store/selectors';
 import SortableUserTable from '../SortableUserTable';
 import UserTypeSelect from './UserTypeSelect';
+import PageTitle from '../../core/PageTitle';
 
 function AdminPanel() {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function AdminPanel() {
   }, [listOption, dispatch, selectedUser, selectedToken]);
   return (
     <div>
-      <h2>ADMIN PANEL: {selectedUser.email}</h2>
+      <PageTitle variant='h3'>ADMIN PANEL: {selectedUser.email}</PageTitle>
       <UserTypeSelect value={listOption} handleChange={handleListOption} />
       <SortableUserTable userList={selectedUserList} />
     </div>
