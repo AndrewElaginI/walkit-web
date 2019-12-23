@@ -8,7 +8,7 @@ import { useInput } from '../../../hooks/useInput';
 import { authStart } from '../../../store/auth/actions';
 import InputWithIcon from '../../../core/InputWithIcon';
 import PasswordInput from '../../../core/PasswordInput';
-import FormButton from '../../../core/FormButton';
+import SimpleButton from '../../../core/SimpleButton';
 import PageTitle from '../../../core/PageTitle';
 
 function LoginForm() {
@@ -29,9 +29,11 @@ function LoginForm() {
       <form onSubmit={handleSubmit}>
         <InputWithIcon value={email} handleChange={handleEmail} />
         <PasswordInput value={password} handleChange={handlePassword} />
-        <FormButton />
+        <SimpleButton type='submit'>Login</SimpleButton>
       </form>
-      <Button onClick={() => history.goBack()}>Back</Button>
+      <Button color='primary' onClick={() => history.goBack()}>
+        Back
+      </Button>
     </div>
   );
 }

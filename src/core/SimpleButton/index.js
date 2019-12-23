@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 
 import { useStyles } from './styles';
 
-export default function FormButton() {
+export default function SimpleButton({ buttonType = 'submit', children }) {
   const classes = useStyles();
 
   return (
@@ -12,10 +12,10 @@ export default function FormButton() {
       <Button
         variant='contained'
         color='primary'
-        type='submit'
+        type={buttonType}
         className={classes.margin}
       >
-        Login
+        {children}
       </Button>
     </div>
   );

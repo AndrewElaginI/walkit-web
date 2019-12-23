@@ -12,6 +12,7 @@ import {
 import SortableUserTable from '../SortableUserTable';
 import UserTypeSelect from './UserTypeSelect';
 import PageTitle from '../../core/PageTitle';
+import SimpleButton from '../../core/SimpleButton';
 
 function AdminPanel() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function AdminPanel() {
       <PageTitle variant='h3'>ADMIN PANEL: {selectedUser.email}</PageTitle>
       <UserTypeSelect value={listOption} handleChange={handleListOption} />
       <SortableUserTable userList={selectedUserList} />
+      <SimpleButton type='button'>Add User</SimpleButton>
     </div>
   );
 }
