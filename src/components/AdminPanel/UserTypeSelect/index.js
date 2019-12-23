@@ -7,9 +7,11 @@ import Select from '@material-ui/core/Select';
 
 import { useStyles } from './styles';
 
-export default function UserTypeSelect({ value, handleChange }) {
+export default function UserTypeSelect({ value, handleChange, options = [] }) {
   const classes = useStyles();
-
+  const menuItemsList = options.map(option => {
+    return <MenuItem value={option}>{option}</MenuItem>;
+  });
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -19,9 +21,10 @@ export default function UserTypeSelect({ value, handleChange }) {
           value={value}
           onChange={handleChange}
         >
-          <MenuItem value='all'>all</MenuItem>
+          {menuItemsList}
+          {/* <MenuItem value='all'>all</MenuItem>
           <MenuItem value='employee'>employee</MenuItem>
-          <MenuItem value='manager'>manager</MenuItem>
+          <MenuItem value='manager'>manager</MenuItem> */}
         </Select>
         <FormHelperText className={classes.helperText}>
           User Type
