@@ -3,7 +3,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Home from '../Home';
 import LoginForm from '../Forms/LoginForm';
 import AdminPanel from '../AdminPanel';
-// import Signup from '../Signup';
 import ProtectedRoute from './ProtectedRoute';
 import ManagerPanel from '../ManagerPanel';
 import CreateUserForm from '../Forms/CreateUserForm';

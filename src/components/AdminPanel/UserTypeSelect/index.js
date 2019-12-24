@@ -9,8 +9,12 @@ import { useStyles } from './styles';
 
 export default function UserTypeSelect({ value, handleChange, options = [] }) {
   const classes = useStyles();
-  const menuItemsList = options.map(option => {
-    return <MenuItem value={option}>{option}</MenuItem>;
+  const menuItemsList = options.map((option, index) => {
+    return (
+      <MenuItem key={option + index} value={option}>
+        {option}
+      </MenuItem>
+    );
   });
   return (
     <div>
@@ -22,9 +26,6 @@ export default function UserTypeSelect({ value, handleChange, options = [] }) {
           onChange={handleChange}
         >
           {menuItemsList}
-          {/* <MenuItem value='all'>all</MenuItem>
-          <MenuItem value='employee'>employee</MenuItem>
-          <MenuItem value='manager'>manager</MenuItem> */}
         </Select>
         <FormHelperText className={classes.helperText}>
           User Type

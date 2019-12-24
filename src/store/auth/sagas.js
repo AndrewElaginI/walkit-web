@@ -9,6 +9,7 @@ import { loginUrl, tokenUrl } from './constants';
 export default function* watchAuthSaga() {
   yield takeLatest(AUTH_START, auth);
   yield takeLatest(AUTH_LOGOUT, logout);
+  // yield takeLatest(AUTO_LOGIN_START, autoLogin);
 }
 
 function authApi(data) {
@@ -20,36 +21,62 @@ function authApi(data) {
   });
 }
 
+function* login(token) {
+  const getUserResponse = yield call(() =>
+    axios.get(loginUrl, {
+      headers: { Authorization: `bearer ${token}` }
+    })
+  );
+  const user = getUserResponse.data;
+  localStorage.setItem('userId', user.id);
+  localStorage.setItem('user', user);
+  localStorage.setItem('role', user.role);
+  yield put(actions.authSuccess(token, user.id, user));
+  if (user.role === 'admin') {
+    yield put(push(`/profile/${user.id}`));
+  } else if (user.role === 'manager') {
+    yield put(push(`/manager`));
+  }
+}
+
 function* auth(action) {
   try {
-    // to refactor
-    const getToken = yield call(authApi, [
-      'POST',
-      tokenUrl,
-      {
-        email: action.email,
-        password: action.password
-      },
-      {
-        'Content-Type': 'application/json'
-      }
-    ]);
-    const { token } = getToken.data.data;
-    localStorage.setItem('token', token);
-
-    const getUserResponse = yield call(() =>
-      axios.get(loginUrl, {
-        headers: { Authorization: `bearer ${token}` }
-      })
-    );
-    const user = getUserResponse.data;
-    localStorage.setItem('userId', user.id);
-    localStorage.setItem('user', user);
-    yield put(actions.authSuccess(token, user.id, user));
-    yield put(push(`/profile/${user.id}`));
+    if (action.token) {
+      yield call(login, action.token);
+    } else {
+      // to refactor
+      const getToken = yield call(authApi, [
+        'POST',
+        tokenUrl,
+        {
+          email: action.email,
+          password: action.password
+        },
+        {
+          'Content-Type': 'application/json'
+        }
+      ]);
+      const { token } = getToken.data.data;
+      localStorage.setItem('token', token);
+      yield call(login, token);
+    }
   } catch (error) {
     yield put(actions.authFail(error.message));
   }
 }
 
 function* logout(action) {}
+
+// function* autoLogin(action) {
+//   const userId = localStorage.getItem('userId');
+//   const role = localStorage.getItem('role');
+//   if (userId !== null && role !== null) {
+//     if (role === 'admin') {
+//       yield put(push(`/profile/${userId}`));
+//     } else {
+//       yield put(push(`/manager`));
+//     }
+//   } else {
+//     yield put(push('/login'));
+//   }
+// }
