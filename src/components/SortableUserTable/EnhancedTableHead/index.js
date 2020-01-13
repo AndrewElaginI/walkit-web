@@ -7,10 +7,12 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import { headCells } from './helpers';
+import { useStyles } from '../styles';
 
 const EnhancedTableHead = props => {
+  const classes = useStyles();
   const {
-    classes,
+    // classes,
     onSelectAllClick,
     order,
     orderBy,
@@ -31,7 +33,7 @@ const EnhancedTableHead = props => {
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={numSelected === rowCount}
               onChange={onSelectAllClick}
-              inputProps={{ 'aria-label': 'select all desserts' }}
+              inputProps={{ 'aria-label': 'select all users' }}
             />
           </TableCell>
           {headCells.map(headCell => (

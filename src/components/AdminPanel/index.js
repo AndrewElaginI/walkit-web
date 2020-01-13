@@ -12,6 +12,7 @@ import {
   tokenSelector
 } from '../../store/selectors';
 import SortableUserTable from '../SortableUserTable';
+import EnhancedTable from '../EnhancedTable';
 import UserTypeSelect from './UserTypeSelect';
 import PageTitle from '../../core/PageTitle';
 import SimpleButton from '../../core/SimpleButton';
@@ -41,6 +42,7 @@ function AdminPanel() {
         options={options}
       />
       <SortableUserTable userList={selectedUserList} />
+      {/* <EnhancedTable /> */}
       <SimpleButton type='button'>
         <NavLink
           to={{

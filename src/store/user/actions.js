@@ -4,7 +4,10 @@ import {
   SIGNUP_FAIL,
   FETCH_SPECIFIC_USERS_START,
   FETCH_SPECIFIC_USERS_SUCCESS,
-  FETCH_SPECIFIC_USERS_FAIL
+  FETCH_SPECIFIC_USERS_FAIL,
+  DELETE_USER_START,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL
 } from './types';
 
 export const signupStart = (email, password, role = 'employee') => {
@@ -53,6 +56,28 @@ export const fetchSpecificUsersSuccess = userList => {
 export const fetchSpecificUsersFail = error => {
   return {
     type: FETCH_SPECIFIC_USERS_FAIL,
-    error: error
+    error
+  };
+};
+
+export const deleteUserStart = (userIds, token) => {
+  return {
+    type: DELETE_USER_START,
+    userIds,
+    token
+  };
+};
+
+export const deleteUserSuccess = userIds => {
+  return {
+    type: DELETE_USER_SUCCESS,
+    userIds
+  };
+};
+
+export const deleteUserFail = error => {
+  return {
+    type: DELETE_USER_FAIL,
+    error
   };
 };

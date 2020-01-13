@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { teal } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles(theme => ({
   root: {
@@ -8,6 +9,7 @@ export const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2)
+    // backgroundColor: teal[400]
   },
   table: {
     minWidth: 750

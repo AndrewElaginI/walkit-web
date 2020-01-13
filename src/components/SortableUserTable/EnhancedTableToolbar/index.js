@@ -61,7 +61,7 @@ const EnhancedTableToolbar = props => {
       {openDeleteUserDialog && (
         <DeleteUserDialog
           openDialog={openDeleteUserDialog}
-          userIds={selected}
+          userIds={selected['0']}
         />
       )}
     </Toolbar>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 import { userSelector, isLoggedInSelector } from '../../store/selectors';
 import * as commonStyles from '../../common/assets/styles';
@@ -15,7 +15,7 @@ function Home() {
     <div>
       <PageTitle>Home</PageTitle>
       {selectedIsLoggedIn ? (
-        <h3>Welcome, {selectedUser.email}</h3>
+        <Typography variant='h4'>Welcome, {selectedUser.email}</Typography>
       ) : (
         <div>
           <h3>Login, please</h3>

@@ -1,7 +1,7 @@
 export function createData(userList) {
   return userList.map(user => ({
-    fullName: `${user.email} ${user.role}`,
     id: user.id,
+    fullName: `${user.email} ${user.role}`,
     email: user.email,
     role: user.role,
     phone: Number(user.id) * 12345,

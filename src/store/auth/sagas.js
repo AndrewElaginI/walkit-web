@@ -9,7 +9,6 @@ import { loginUrl, tokenUrl } from './constants';
 export default function* watchAuthSaga() {
   yield takeLatest(AUTH_START, auth);
   yield takeLatest(AUTH_LOGOUT, logout);
-  // yield takeLatest(AUTO_LOGIN_START, autoLogin);
 }
 
 function authApi(data) {
@@ -66,17 +65,3 @@ function* auth(action) {
 }
 
 function* logout(action) {}
-
-// function* autoLogin(action) {
-//   const userId = localStorage.getItem('userId');
-//   const role = localStorage.getItem('role');
-//   if (userId !== null && role !== null) {
-//     if (role === 'admin') {
-//       yield put(push(`/profile/${userId}`));
-//     } else {
-//       yield put(push(`/manager`));
-//     }
-//   } else {
-//     yield put(push('/login'));
-//   }
-// }

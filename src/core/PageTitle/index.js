@@ -7,7 +7,7 @@ import { useStyles } from './styles';
 function PageTitle({ children }) {
   const classes = useStyles();
   return (
-    <Typography variant='h3' className={classes.title}>
+    <Typography variant='h3' color='primary' className={classes.title}>
       {children}
     </Typography>
   );

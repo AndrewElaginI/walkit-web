@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -22,9 +24,16 @@ function DeleteUserDialog({ openDialog = false, userIds = [] }) {
 
   const handleDelete = e => {
     e.preventDefault();
-    console.log('From Dialog userIds', userIds);
-    dispatch(deleteUserStart(userIds, selectedToken));
-    handleClose();
+    // console.log('From Dialog userIds', userIds);
+    // dispatch(deleteUserStart(userIds, selectedToken));
+    // handleClose();
+    axios
+      .delete(`http://localhost:3000/users/${userIds}`)
+      .then(res => {
+        console.log('deleted!!!!!!!', res);
+        handleClose();
+      })
+      .catch(err => console.log(err));
   };
 
   return (

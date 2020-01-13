@@ -1,20 +1,32 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest, all } from 'redux-saga/effects';
 import axios from 'axios';
+import { push } from 'connected-react-router';
 
 import * as actions from './actions';
 import { authStart } from '../auth/actions';
-import { fetchSpecificUsersSuccess, fetchSpecificUsersFail } from './actions';
-import { SIGNUP_START, FETCH_SPECIFIC_USERS_START } from './types';
+import {
+  fetchSpecificUsersSuccess,
+  fetchSpecificUsersFail,
+  deleteUserSuccess,
+  deleteUserFail
+} from './actions';
+import {
+  SIGNUP_START,
+  FETCH_SPECIFIC_USERS_START,
+  DELETE_USER_START
+} from './types';
 import {
   signupUrl,
   fetchAllUsersUrl,
   fetchManagersUrl,
-  fetchEmployeesUrl
+  fetchEmployeesUrl,
+  deleteUserUrl
 } from './constants';
 
 export default function* watchUserSaga() {
   yield takeLatest(SIGNUP_START, signup);
   yield takeLatest(FETCH_SPECIFIC_USERS_START, fetchSpecificUsers);
+  yield takeLatest(DELETE_USER_START, deleteUser);
 }
 
 function* signup(action) {
@@ -28,7 +40,7 @@ function* signup(action) {
       })
     );
     yield put(actions.signupSuccess());
-    yield put(authStart(signupUser.data.email, signupUser.data.password));
+    // yield put(authStart(signupUser.data.email, signupUser.data.password));
   } catch (error) {
     yield put(actions.signupFail(error.message));
   }
@@ -71,5 +83,35 @@ function* fetchSpecificUsers(action) {
     yield put(fetchSpecificUsersSuccess(userList.data));
   } catch (error) {
     yield put(fetchSpecificUsersFail(error.message));
+  }
+}
+
+const deleteUserApi = (url, id, token) =>
+  axios.delete(url, {
+    headers: { Authorization: `bearer ${token}` }
+  });
+
+function* deleteUser(action) {
+  const { userIds, token } = action;
+  console.log('typeof userIds', typeof action.userIds);
+  console.log('userIds', action.userIds);
+  try {
+    // yield all(
+    //   userIds.map(id => {
+    //     return call(() => deleteUserApi(`${deleteUserUrl}/${id}`, token));
+    //   })
+    // );
+    // yield userIds.map(id => {
+    //   return call(() => deleteUserApi(`${deleteUserUrl}/${id}`, id, token));
+    // });
+    // yield call(() =>
+    //   axios.delete(`http://localhost:3000/users/${userIds}`, {
+    //     // headers: { Authorization: `bearer ${token}` },
+    //   })
+    // );
+    yield call(() => deleteUserApi(`${deleteUserUrl}/${userIds}`, token));
+    yield put(deleteUserSuccess(userIds));
+  } catch (error) {
+    yield put(deleteUserFail(error.message));
   }
 }

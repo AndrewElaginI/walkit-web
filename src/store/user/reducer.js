@@ -4,7 +4,10 @@ import {
   SIGNUP_FAIL,
   FETCH_SPECIFIC_USERS_START,
   FETCH_SPECIFIC_USERS_SUCCESS,
-  FETCH_SPECIFIC_USERS_FAIL
+  FETCH_SPECIFIC_USERS_FAIL,
+  DELETE_USER_START,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL
 } from './types';
 
 const initialState = {
@@ -47,6 +50,23 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         loadingUserList: false,
+        error: action.error
+      };
+    case DELETE_USER_START:
+      return {
+        ...state,
+        ...{ deletingUser: true, error: null }
+      };
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        userList: state.userList.filter(user => user.id !== action.userIds),
+        deletingUser: false
+      };
+    case DELETE_USER_FAIL:
+      return {
+        ...state,
+        deletingUser: false,
         error: action.error
       };
     default:
